@@ -115,3 +115,81 @@
       2. args - The arguments provided ot the field in the GraphQL query
       3. Context - A value which is provided to every resolver and holds important contextual information, like the currently logged in user, or access to a database
       4. info - a value which holds field-specific information relevevant to the current query as well as the schema details
+
+### Graphql features
+
+#### Fragement
+  For reusability
+
+  ```
+    type User {
+        name: String!
+        age: Int!
+        email: String!
+        street: String!
+        zipcode: String!
+        city: String!
+    }
+  ```
+
+  We could have for the address fields:
+
+  ```
+    fragment addressDetails on User {
+      name
+      street
+      zipcode
+      city
+    }
+  ```
+
+  Now we can query using it:
+  ```
+    {
+      allUsers {
+        ...addressDetails
+      }
+    }
+  ```
+
+#### Fields with arguments
+
+```
+  type Query {
+    allUsers(olderThan: Int = -1):[User!]!
+  }
+```
+Now, we can query like this:
+```
+{
+  allUsers(olderThan: 30) {
+    name
+    age
+  }
+}
+```
+And the default value will be `>= 0`
+
+#### Named Query Results with Aliases
+
+```
+{
+  first: User(id: "1") {
+    name
+  }
+  second: User(id: "2") {
+    name
+  }
+}
+```
+The result:
+```
+{
+  "first": {
+    "name": "Alice"
+  },
+  "second": {
+    "name": "Sarah"
+  }
+}
+```
