@@ -1,4 +1,4 @@
-# GraphQL
+# HOT TO GraphQL
 
 - A query langague for API's (not a database technology)
 - An alternative to REST
