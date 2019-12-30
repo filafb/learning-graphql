@@ -3,6 +3,8 @@ type Query {
   # link(id: ID!): Link
 }
 
+scalar Date
+
 type Feed {
   links: [Link!]!
   count: Int!
@@ -23,6 +25,7 @@ type Link {
   url: String!
   postedBy: User
   votes: [Vote!]!
+  createdAt: Date!
 }
 
 type AuthPayload {
